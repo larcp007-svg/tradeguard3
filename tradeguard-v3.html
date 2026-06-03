@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradeGuard — Les traders ne perdent pas leur compte à cause du marché.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f4ef;
+  --bg2: #eeeae2;
+  --ink: #0f0e0c;
+  --ink2: #3a3630;
+  --muted: #8a8379;
+  --accent: #c84b2f;
+  --accent2: #1a3a2a;
+  --border: #d8d3ca;
+  --card: #ffffff;
+  --yellow: #f5c842;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(247,244,239,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
+
+.logo em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.nav-pill {
+  padding: 9px 18px;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.nav-pill:hover { background: var(--accent); }
+
+/* ── HERO ── */
+.hero {
+  padding: 130px 24px 70px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  animation: fadeUp .5s ease both;
+}
+
+.eyebrow-line {
+  width: 24px;
+  height: 1px;
+  background: var(--muted);
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(42px, 9vw, 72px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+  animation: fadeUp .5s .08s ease both;
+}
+
+.hero h1 .serif-italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero h1 .line2 {
+  display: block;
+  font-size: clamp(38px, 8vw, 64px);
+}
+
+.hero-divider {
+  width: 48px;
+  height: 3px;
+  background: var(--accent);
+  margin: 24px 0;
+  animation: fadeUp .5s .16s ease both;
+}
+
+.hero p {
+  font-size: clamp(16px, 2.5vw, 19px);
+  color: var(--ink2);
+  line-height: 1.65;
+  max-width: 540px;
+  margin-bottom: 36px;
+  font-weight: 300;
+  animation: fadeUp .5s .24s ease both;
+}
+
+.hero p strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ── EMAIL CAPTURE ── */
+.capture {
+  display: flex;
+  gap: 10px;
+  max-width: 460px;
+  animation: fadeUp .5s .32s ease both;
+}
+
+.capture-input {
+  flex: 1;
+  padding: 15px 18px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+}
+
+.capture-input:focus { border-color: var(--ink); }
+.capture-input::placeholder { color: var(--muted); }
+
+.capture-btn {
+  padding: 15px 22px;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+}
+
+.capture-btn:hover { background: var(--accent); }
+
+.capture-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+  animation: fadeUp .5s .4s ease both;
+}
+
+.success-hero {
+  display: none;
+  padding: 16px 20px;
+  background: var(--accent2);
+  color: #a8e6c4;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 460px;
+}
+
+.success-hero.show { display: block; }
+
+/* ── STATEMENT ── */
+.statement {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.statement-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.statement h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(24px, 5vw, 38px);
+  line-height: 1.3;
+  color: rgba(247,244,239,0.9);
+  margin-bottom: 20px;
+}
+
+.statement h2 strong {
+  font-weight: 900;
+  font-style: normal;
+  color: var(--yellow);
+}
+
+.statement-sub {
+  font-size: 14px;
+  color: rgba(247,244,239,0.45);
+  font-weight: 300;
+}
+
+/* ── PAIN ── */
+.pain {
+  padding: 80px 24px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  max-width: 60px;
+}
+
+.pain h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(30px, 6vw, 46px);
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 36px;
+}
+
+.pain h2 em { font-style: italic; color: var(--accent); }
+
+.pain-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.pain-row {
+  padding: 22px 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+
+.pain-row:last-child { border-bottom: none; }
+.pain-row:hover { background: var(--bg2); }
+
+.pain-num {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 28px;
+  color: var(--border);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+.pain-body h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.pain-body p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ── CALCULATOR ── */
+.calc-section {
+  background: var(--accent);
+  padding: 70px 24px;
+}
+
+.calc-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.calc-inner .section-label {
+  color: rgba(247,244,239,0.6);
+}
+
+.calc-inner .section-label::after { background: rgba(247,244,239,0.2); }
+
+.calc-inner h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(28px, 5vw, 42px);
+  color: var(--bg);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.calc-box {
+  background: rgba(0,0,0,0.15);
+  border-radius: 14px;
+  padding: 28px 24px;
+  backdrop-filter: blur(4px);
+}
+
+.calc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.calc-row:last-of-type { margin-bottom: 28px; }
+
+.calc-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(247,244,239,0.8);
+  flex: 1;
+}
+
+.calc-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.calc-btn-sm {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(247,244,239,0.15);
+  border: 1px solid rgba(247,244,239,0.2);
+  color: var(--bg);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+  line-height: 1;
+}
+
+.calc-btn-sm:hover { background: rgba(247,244,239,0.25); }
+
+.calc-val {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--bg);
+  min-width: 40px;
+  text-align: center;
+}
+
+.calc-result {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.result-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.result-label { font-size: 13px; color: var(--muted); }
+
+.result-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.result-value.red { color: var(--accent); }
+.result-value.green { color: var(--accent2); }
+
+.result-verdict {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--accent2);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #a8e6c4;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ── FEATURES ── */
+.features {
+  padding: 80px 24px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.features h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(30px, 6vw, 46px);
+  letter-spacing: -1.5px;
+  margin-bottom: 8px;
+  line-height: 1.05;
+}
+
+.features h2 em { font-style: italic; color: var(--accent); }
+
+.features-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+
+.feat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 480px) { .feat-grid { grid-template-columns: 1fr; } }
+
+.feat-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color .2s, transform .2s;
+}
+
+.feat-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.feat-card.wide {
+  grid-column: 1 / -1;
+}
+
+.feat-emoji { font-size: 22px; margin-bottom: 10px; display: block; }
+
+.feat-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.feat-card p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ── BETA ── */
+.beta {
+  background: var(--ink);
+  padding: 70px 24px;
+}
+
+.beta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.beta-inner .section-label {
+  color: rgba(247,244,239,0.4);
+}
+
+.beta-inner .section-label::after { background: rgba(247,244,239,0.1); }
+
+.beta-inner h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(28px, 5vw, 42px);
+  color: var(--bg);
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.beta-inner h2 em { font-style: italic; color: var(--yellow); }
+
+.beta-desc {
+  font-size: 14px;
+  color: rgba(247,244,239,0.5);
+  margin-bottom: 28px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.beta-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.perk {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px;
+  background: rgba(247,244,239,0.04);
+  border: 1px solid rgba(247,244,239,0.08);
+  border-radius: 10px;
+}
+
+.perk-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+.perk-text h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bg);
+  margin-bottom: 2px;
+}
+
+.perk-text p {
+  font-size: 12px;
+  color: rgba(247,244,239,0.45);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.beta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.beta-input {
+  padding: 15px 18px;
+  background: rgba(247,244,239,0.06);
+  border: 1.5px solid rgba(247,244,239,0.12);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--bg);
+  outline: none;
+  transition: border-color .2s;
+}
+
+.beta-input:focus { border-color: rgba(247,244,239,0.4); }
+.beta-input::placeholder { color: rgba(247,244,239,0.3); }
+
+.beta-btn {
+  padding: 15px;
+  background: var(--yellow);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.beta-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,200,66,.3); }
+
+.beta-note {
+  font-size: 11px;
+  color: rgba(247,244,239,0.3);
+}
+
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(245,200,66,0.1);
+  border: 1px solid rgba(245,200,66,0.2);
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--yellow);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.counter-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* ── PRICING ── */
+.pricing {
+  padding: 80px 24px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.pricing h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(30px, 6vw, 42px);
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.pricing-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.price-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-row {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+}
+
+.price-row:hover { border-color: var(--ink); }
+
+.price-row.featured {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.price-tag {
+  position: absolute;
+  top: -1px; right: 14px;
+  background: var(--yellow);
+  color: #1a1a1a;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 0 0 6px 6px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.price-name {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.price-row.featured .price-name { color: rgba(247,244,239,0.5); }
+
+.price-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.price-feats {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+.price-row.featured .price-feats { color: rgba(247,244,239,0.45); }
+
+.price-amount {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 32px;
+  letter-spacing: -1px;
+  flex-shrink: 0;
+}
+
+.price-amount span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.price-row.featured .price-amount span { color: rgba(247,244,239,.45); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.footer-logo em { font-style: italic; color: var(--accent); }
+
+footer p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Trade<em>Guard</em></div>
+  <button class="nav-pill" onclick="document.getElementById('beta').scrollIntoView({behavior:'smooth'})">Accès bêta gratuit</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="eyebrow-line"></span>
+    Pour traders de prop firms
+  </div>
+
+  <h1>
+    Les traders ne perdent pas
+    <span class="line2">leur compte à cause <span class="serif-italic">du marché.</span></span>
+  </h1>
+
+  <div class="hero-divider"></div>
+
+  <p>
+    Ils le perdent à cause <strong>d'une mauvaise journée.</strong> Trois pertes ignorées, un risque doublé par émotion, un trade pris hors plan. TradeGuard détecte ces moments avant qu'ils fassent sauter ton compte.
+  </p>
+
+  <div class="capture">
+    <input type="email" class="capture-input" id="heroEmail" placeholder="ton@email.com">
+    <button class="capture-btn" onclick="heroSubmit()">Je veux tester →</button>
+  </div>
+  <p class="capture-note">Accès bêta gratuit · 50 places · Zéro spam</p>
+  <div class="success-hero" id="heroSuccess">
+    ✓ Tu es sur la liste. On te contacte dès l'ouverture de la bêta.
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<div class="statement">
+  <div class="statement-inner">
+    <h2>
+      "Ta stratégie n'est pas le problème.<br>
+      <strong>Tu es le problème.</strong><br>
+      Et tu le sais déjà."
+    </h2>
+    <p class="statement-sub">Ce que TradeGuard change.</p>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section class="pain reveal">
+  <div class="section-label">Le vrai problème</div>
+  <h2>Combien de fois as-tu <em>répété</em> la même erreur ?</h2>
+
+  <div class="pain-list">
+    <div class="pain-row">
+      <div class="pain-num">01</div>
+      <div class="pain-body">
+        <h4>Tu continues après 3 pertes consécutives</h4>
+        <p>Tu sais que tu dois t'arrêter. Tu continues quand même. Le compte saute 20 minutes plus tard.</p>
+      </div>
+    </div>
+    <div class="pain-row">
+      <div class="pain-num">02</div>
+      <div class="pain-body">
+        <h4>Tu doubles la mise pour te refaire</h4>
+        <p>Un trade émotionnel pour récupérer la perte. Le drawdown explose. Le compte est en danger.</p>
+      </div>
+    </div>
+    <div class="pain-row">
+      <div class="pain-num">03</div>
+      <div class="pain-body">
+        <h4>Tu trades hors de tes horaires habituels</h4>
+        <p>La journée est rouge. Tu cherches à rattraper sur un marché que tu ne maîtrises pas.</p>
+      </div>
+    </div>
+    <div class="pain-row">
+      <div class="pain-num">04</div>
+      <div class="pain-body">
+        <h4>Ça recommence au prochain compte</h4>
+        <p>Tu repasses le challenge. Tu recommences avec les meilleures intentions. Et ça arrive encore.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section" id="calculator">
+  <div class="calc-inner">
+    <div class="section-label" style="color:rgba(247,244,239,0.5)">Le coût réel</div>
+    <h2>Combien ça t'a déjà coûté ?</h2>
+
+    <div class="calc-box">
+      <div class="calc-row">
+        <div class="calc-label">Comptes prop firm perdus</div>
+        <div class="calc-control">
+          <button class="calc-btn-sm" onclick="adjust('accounts',-1)">−</button>
+          <div class="calc-val" id="accountsVal">2</div>
+          <button class="calc-btn-sm" onclick="adjust('accounts',1)">+</button>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-label">Coût par challenge (€)</div>
+        <div class="calc-control">
+          <button class="calc-btn-sm" onclick="adjust('cost',-50)">−</button>
+          <div class="calc-val" id="costVal">155</div>
+          <button class="calc-btn-sm" onclick="adjust('cost',50)">+</button>
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <div class="result-row">
+          <div class="result-label">Tu as déjà perdu</div>
+          <div class="result-value red" id="totalLost">310€</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">TradeGuard Pro / an</div>
+          <div class="result-value green">228€</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Tu économises</div>
+          <div class="result-value" id="savings">82€</div>
+        </div>
+        <div class="result-verdict" id="verdict">
+          Si TradeGuard t'avait évité un seul compte perdu, il se serait remboursé en 8 mois.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features reveal">
+  <div class="section-label">La solution</div>
+  <h2>Un gardien silencieux.<br>Toujours <em>actif.</em></h2>
+  <p class="features-sub">Pas de coaching, pas de théorie. Un système qui surveille et intervient.</p>
+
+  <div class="feat-grid">
+    <div class="feat-card">
+      <span class="feat-emoji">📊</span>
+      <h4>Drawdown en temps réel</h4>
+      <p>Vois exactement combien il te reste avant la limite de disqualification.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">🚨</span>
+      <h4>Alerte pertes consécutives</h4>
+      <p>Notification après 2 ou 3 pertes d'affilée. Immédiatement, pas après.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">📈</span>
+      <h4>Détection risque anormal</h4>
+      <p>Si ta position dépasse ta moyenne habituelle, tu le sais avant d'exécuter.</p>
+    </div>
+    <div class="feat-card">
+      <span class="feat-emoji">📋</span>
+      <h4>Rapport quotidien</h4>
+      <p>Score de discipline, erreurs détectées, comportements à corriger.</p>
+    </div>
+    <div class="feat-card wide">
+      <span class="feat-emoji">🛑</span>
+      <h4>Mode verrouillage</h4>
+      <p>En un clic, TradeGuard masque tes métriques et t'envoie des alertes jusqu'au lendemain. Un frein externe quand tu ne peux pas t'arrêter seul.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BETA -->
+<section class="beta reveal" id="beta">
+  <div class="beta-inner">
+    <div class="section-label">Bêta ouverte</div>
+    <div class="counter">
+      <div class="counter-dot"></div>
+      <span id="spotsLeft">43 places restantes sur 50</span>
+    </div>
+    <h2>Construisons ça <em>ensemble.</em></h2>
+    <p class="beta-desc">
+      TradeGuard est en cours de construction. On cherche 50 traders prop firm pour tester le produit gratuitement, donner leurs retours, et aider à prioriser les fonctionnalités.
+    </p>
+
+    <div class="beta-perks">
+      <div class="perk">
+        <div class="perk-icon">🎁</div>
+        <div class="perk-text">
+          <h5>Accès bêta 100% gratuit</h5>
+          <p>3 mois d'accès complet sans carte bancaire pour les 50 premiers.</p>
+        </div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🎯</div>
+        <div class="perk-text">
+          <h5>Tu influences le produit</h5>
+          <p>Tes retours déterminent directement ce qu'on construit en priorité.</p>
+        </div>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🔒</div>
+        <div class="perk-text">
+          <h5>Tarif fondateur bloqué à vie</h5>
+          <p>9€/mois à vie, même quand le produit monte en prix.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="beta-form">
+      <input type="email" class="beta-input" id="betaEmail" placeholder="ton@email.com">
+      <button class="beta-btn" onclick="betaSubmit()">🛡️ Rejoindre la bêta gratuite</button>
+      <p class="beta-note">Pas de CB. Désabonnement en 1 clic.</p>
+    </div>
+    <div class="success-hero" id="betaSuccess" style="margin-top:12px">
+      ✓ Tu es sur la liste ! On te contacte dès le lancement. Merci.
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing reveal">
+  <div class="section-label">Tarifs</div>
+  <h2>Simple et transparent.</h2>
+  <p class="pricing-sub">Moins cher qu'un seul compte prop firm perdu par manque de discipline.</p>
+
+  <div class="price-list">
+    <div class="price-row" onclick="document.getElementById('beta').scrollIntoView({behavior:'smooth'})">
+      <div>
+        <div class="price-name">Basic</div>
+        <div class="price-title">Essentiel</div>
+        <div class="price-feats">1 compte · Alertes · Rapport quotidien</div>
+      </div>
+      <div class="price-amount">9€ <span>/ mois</span></div>
+    </div>
+
+    <div class="price-row featured" onclick="document.getElementById('beta').scrollIntoView({behavior:'smooth'})">
+      <div class="price-tag">⚡ Recommandé</div>
+      <div>
+        <div class="price-name">Pro</div>
+        <div class="price-title">Protection complète</div>
+        <div class="price-feats">3 comptes · SMS + Push · Historique 30j</div>
+      </div>
+      <div class="price-amount">19€ <span>/ mois</span></div>
+    </div>
+
+    <div class="price-row" onclick="document.getElementById('beta').scrollIntoView({behavior:'smooth'})">
+      <div>
+        <div class="price-name">Elite</div>
+        <div class="price-title">Illimité + IA</div>
+        <div class="price-feats">Comptes illimités · Analyse IA · Tout inclus</div>
+      </div>
+      <div class="price-amount">39€ <span>/ mois</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Trade<em>Guard</em></div>
+  <p>Protège ton compte financé. Protège ta discipline.</p>
+  <p style="margin-top:6px">© 2026 TradeGuard · contact@tradeguard.app</p>
+</footer>
+
+<script>
+// Calculator state
+let accounts = 2, cost = 155;
+
+function adjust(type, delta) {
+  if (type === 'accounts') {
+    accounts = Math.max(1, Math.min(20, accounts + delta));
+    document.getElementById('accountsVal').textContent = accounts;
+  } else {
+    cost = Math.max(50, Math.min(1000, cost + delta));
+    document.getElementById('costVal').textContent = cost;
+  }
+  updateCalc();
+}
+
+function updateCalc() {
+  const total = accounts * cost;
+  const annual = 19 * 12;
+  const savings = total - annual;
+  document.getElementById('totalLost').textContent = total + '€';
+  document.getElementById('savings').textContent = savings > 0 ? '+' + savings + '€' : savings + '€';
+  const months = Math.ceil(annual / cost);
+  document.getElementById('verdict').textContent =
+    `Si TradeGuard t'avait évité un seul compte perdu, il se serait remboursé en ${months} mois.`;
+}
+
+updateCalc();
+
+// Email forms
+async function sendToFormspree(email) {
+  await fetch('https://formspree.io/f/xeewqaon', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ email: email, source: 'TradeGuard Landing' })
+  });
+}
+
+function heroSubmit() {
+  const email = document.getElementById('heroEmail').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('heroEmail').style.borderColor = '#c84b2f';
+    setTimeout(() => document.getElementById('heroEmail').style.borderColor = '', 1500);
+    return;
+  }
+  sendToFormspree(email);
+  document.querySelector('.capture').style.display = 'none';
+  document.querySelector('.capture-note').style.display = 'none';
+  document.getElementById('heroSuccess').classList.add('show');
+  decrementSpots();
+}
+
+function betaSubmit() {
+  const email = document.getElementById('betaEmail').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('betaEmail').style.borderColor = 'rgba(200,75,47,.6)';
+    setTimeout(() => document.getElementById('betaEmail').style.borderColor = '', 1500);
+    return;
+  }
+  sendToFormspree(email);
+  document.querySelector('.beta-form').style.display = 'none';
+  document.getElementById('betaSuccess').classList.add('show');
+  decrementSpots();
+}
+
+let spots = 43;
+function decrementSpots() {
+  spots = Math.max(0, spots - 1);
+  document.getElementById('spotsLeft').textContent = spots + ' places restantes sur 50';
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Enter key
+['heroEmail','betaEmail'].forEach(id => {
+  document.getElementById(id).addEventListener('keypress', e => {
+    if (e.key === 'Enter') id === 'heroEmail' ? heroSubmit() : betaSubmit();
+  });
+});
+</script>
+</body>
+</html>
